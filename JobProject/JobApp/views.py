@@ -49,8 +49,7 @@ def apply_to_job(request,job_id):
         messages.error(request,'Your role is not set')
         return redirect('dashboard')   
     if Application.objects.filter(job=job.id,applicant=request.user).exists():
-        messages.info(request,'You have already applied to this job')
-        return redirect('job-detail',job_id=job.id)
+        return render(request,'JobApp/already-applied.html')
     if request.method == 'POST':
         form = ApplicationForm(request.POST,request.FILES)
         if form.is_valid():
