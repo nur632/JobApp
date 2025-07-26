@@ -1,0 +1,13 @@
+<h2>Applicants For Your Jobs</h2>
+{% for application in applications %}
+<div>
+    <h1>Job:</h1>{{application.job}} <br>
+    <h1>Applicant:</h1>{{application.applicant.username}} <br>
+    <h1>Resume:</h1><a href="{{application.resume.url}}" target="_blank">View Resume</a> <br>
+    <h1>Cover letter:</h1>{{application.cover_letter|linebreaks}}<br>
+    <h1>Applied at:</h1>{{application.applied_at}}
+    <hr>
+</div>
+{% empty %}
+<h2>No applications yet.</h2>
+{% endfor %}

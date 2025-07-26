@@ -1,0 +1,6 @@
+<h2>Post A Job</h2>
+<form method="POST">
+    {{form.as_p}}
+    {% csrf_token %}
+    <button type="submit">Post job</button>
+</form>

@@ -1,0 +1,27 @@
+{% if user.is_authenticated %}
+    {% with user.userrole.role as role %}
+        {% if role == "applicant" %}
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+            <form method="GET">
+                <input type="text" name="q" placeholder="Search for jobs.." value="{{query}}">
+                <button type="submit">Search</button>
+            </form>
+            <h1>Applicant Dashboard</h1>
+            <div>
+                {% for job in jobs %}
+                <a href="{% url 'job-detail' job.id %}">{{job.title}}</a>
+                <br>
+                {% empty %}
+                <h3>No jobs available...</h3>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h1>You are not an applicant</h1>    
+        {% endif %}
+    {% endwith %}
+{% endif %}
+
+
