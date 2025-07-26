@@ -7,7 +7,22 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+@login_required
+def my_applications_view(request):
+    try:
+        role = UserRole.objects.get(user=request.user).role
+        if role != UserRole.Role.APPLICANT:
+            messages.error(request, "Only applicants can view their applications.")
+            return redirect('dashboard')
+    except UserRole.DoesNotExist:
+        messages.error(request, "Role not set.")
+        return redirect('dashboard')
 
+    my_applications = Application.objects.filter(applicant=request.user)
+
+    return render(request, 'JobApp/my_applications.html', {
+        'applications': my_applications
+    })
 @login_required
 def delete_job(request,job_id):
     job = get_object_or_404(Job,id=job_id)
