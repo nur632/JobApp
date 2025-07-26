@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
+    path('my-applications/', my_applications_view, name='my-applications'),
     path('', views.dashboard_view, name='dashboard'),
     path('dashboard/applicant/', views.applicant_dashboard, name='applicant-dashboard'),
     path('dashboard/employer/', views.employee_dashboard, name='employee-dashboard'),
